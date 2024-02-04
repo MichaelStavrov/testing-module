@@ -1,18 +1,19 @@
-import { DeleteButton } from "./DeleteButton";
+import { DeleteButton } from './DeleteButton';
 
 type Props = Task & {
-  onDelete: (id: Task["id"]) => void;
-  onToggle: (id: Task["id"]) => void;
+  onDelete: (id: Task['id']) => void;
+  onToggle: (id: Task['id']) => void;
 };
 
 export const Item = (props: Props) => {
   return (
-    <li className="item-wrapper">
+    <li className='item-wrapper'>
       <input
-        type="checkbox"
+        type='checkbox'
         id={props.id}
         defaultChecked={props.done}
         onChange={() => props.onToggle(props.id)}
+        data-testid={`task-item-checkbox-${props.id}`}
       />
       <label htmlFor={props.id} onClick={() => props.onToggle(props.id)}>
         {props.done ? <s>{props.header}</s> : props.header}
