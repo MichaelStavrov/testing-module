@@ -16,7 +16,12 @@ export const TaskList = () => {
   };
 
   return items.length > 0 ? (
-    <List items={items} onDelete={handleDelete} onToggle={handleToggle} />
+    <List
+      items={items}
+      onDelete={handleDelete}
+      onToggle={handleToggle}
+      limitUncompleted={10}
+    />
   ) : (
     <Empty />
   );
