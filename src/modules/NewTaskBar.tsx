@@ -4,6 +4,7 @@ import { Input } from 'src/components/Input';
 import { validateHeaderMax, validateHeaderMin } from 'src/utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, uncompleteCount } from 'src/store/taskSlice';
+import { TaskFilter } from 'src/components/TaskFilter';
 
 import './styles.css';
 
@@ -33,6 +34,7 @@ export const NewTaskBar = () => {
         />
         <AddButton onClick={handleAdd} disabled={disabled} />
       </div>
+      <TaskFilter />
     </div>
   );
 };

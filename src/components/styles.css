@@ -137,3 +137,16 @@
 
     border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
 }
+
+.task-filter-wrapper,
+.task-filter-wrapper input,
+.task-filter-wrapper label {
+    cursor: pointer;
+}
+
+.task-filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}

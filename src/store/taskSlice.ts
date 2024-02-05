@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './configureStore';
+import { loadState } from 'src/utils/persist';
 
 export interface TaskFilters {
   hideCompleted: boolean;
@@ -9,11 +10,15 @@ export interface TaskFilters {
 export interface taskListState {
   list: Task[];
   notification: string;
+  filters: TaskFilters;
 }
 
 const initialState: taskListState = {
   list: [],
   notification: '',
+  filters: {
+    hideCompleted: loadState()?.taskList.filters.hideCompleted ?? false,
+  },
 };
 
 export const taskListSlice = createSlice({
@@ -54,6 +59,9 @@ export const taskListSlice = createSlice({
     clearNotification: (state) => {
       state.notification = '';
     },
+    hideCompletedTasks: (state) => {
+      state.filters.hideCompleted = !state.filters.hideCompleted;
+    },
   },
 });
 
@@ -63,6 +71,7 @@ export const {
   deleteTask,
   toggleTask,
   clearNotification,
+  hideCompletedTasks,
 } = taskListSlice.actions;
 
 export default taskListSlice.reducer;
@@ -70,6 +79,9 @@ export default taskListSlice.reducer;
 export const tasksSelector = (state: RootState) => state.taskList.list;
 
 export const fullCount = (state: RootState) => state.taskList.list.length;
+
+export const nonCompletedTasks = (state: RootState) =>
+  state.taskList.list.every((x) => !x.done);
 
 export const completeCount = (state: RootState) =>
   state.taskList.list.filter((x) => x.done).length;
@@ -79,3 +91,16 @@ export const uncompleteCount = (state: RootState) =>
 
 export const getNotification = (state: RootState) =>
   state.taskList.notification;
+
+export const filterTaskSelector = (state: RootState) =>
+  state.taskList.filters.hideCompleted;
+
+export const filteredTasks = (state: RootState) => {
+  const { hideCompleted } = state.taskList.filters;
+
+  if (hideCompleted) {
+    return state.taskList.list.filter((x) => x.done !== hideCompleted);
+  }
+
+  return state.taskList.list;
+};

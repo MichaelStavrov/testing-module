@@ -1,4 +1,4 @@
-import AddIcon from "../icons/add.png";
+import AddIcon from '../icons/add.png';
 
 type Props = {
   onClick: () => void;
@@ -7,12 +7,13 @@ type Props = {
 export const AddButton = ({ onClick, disabled }: Props) => {
   return (
     <button
-      className="button button-with-icon"
+      className='button button-with-icon'
       onClick={onClick}
       disabled={disabled}
-      data-alt="добавить задачу"
+      data-alt='добавить задачу'
+      data-testid='add-task-button'
     >
-      <img src={AddIcon} alt="Добавить" />
+      <img src={AddIcon} alt='Добавить' />
     </button>
   );
 };
